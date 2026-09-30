@@ -1,8 +1,8 @@
-import pomodoro as pom
+import shell
 
 
 def main() -> None:
-    pom.cycle(0.1, 0)
+    shell.shell()
 
 if __name__ == "__main__":
     main()
