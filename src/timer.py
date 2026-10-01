@@ -1,5 +1,6 @@
 from time import sleep
 from sys  import stdout
+import threading
 
 
 # Tomatoes:
@@ -148,6 +149,8 @@ tomato_end: str = """
             """
 
 
+def get_input() -> str:
+    ...   
 
 def cycle(minutes: int=0, tomato_style: int=0) -> None:
     total_seconds  : int = minutes*60
