@@ -23,9 +23,12 @@ times: dict[str, float] = {
 }
 
 tomato_style: int = 0
+running: bool = True
 
 def shell() -> None:
-    while True:
+    global tomato_style, keys_help, logo, running
+
+    while running:
         print("\033[2J\033[H", end="") # Clear Screen
         print(logo)
         for i in keys_help.keys():
@@ -33,7 +36,7 @@ def shell() -> None:
         
         input_: str = input("Tomatooooo)> ")
 
-        if   ( input_ == "q" ): exit(0)
+        if   ( input_ == "q" ): running=False
         elif ( input_ == "t" ): timer.cycle(times["tomato"     ], tomato_style)
         elif ( input_ == "s" ): timer.cycle(times["short_break"], tomato_style)
         elif ( input_ == "l" ): timer.cycle(times["long_break" ], tomato_style)

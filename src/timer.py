@@ -1,13 +1,14 @@
 from time import sleep
 from sys  import stdout
 import os
-import threading
 
 
 if (os.name == "nt"): ...
 else                :
-    from sys import stdin
-    import termios, tty
+    from   sys     import stdin
+    from   select  import select
+    from   termios import tcgetattr, tcsetattr, TCSADRAIN
+    import tty
 
 # Tomatoes:
 #  _\|/_
@@ -162,55 +163,50 @@ tomato_stopped: str = """
             """
 
 isnt_stopped: int = 1
-running: bool = True
-
-def get_input() -> str:
-    global isnt_stopped, running
-
-    try:
-        if (os.name == "nt"): ...
-        else:
-            stdin_fd = stdin.fileno()
-            stdin_old_terminal_settings = termios.tcgetattr(stdin_fd)
-            tty.setcbreak(stdin_fd)
-
-        if (running == True):
-            if   (os.name == "nt"): ...
-            else                  : input_: str = stdin.read(1)
-                
-            if   (input_ == "s"                 ): isnt_stopped=0
-            elif (input_ == "r"                 ): isnt_stopped=1
-            elif (input_ == " "                 ): isnt_stopped=not isnt_stopped
-            elif (input_ == "q" or input_ == "e"): running=False
-    finally:
-        if (os.name != "nt"): termios.tcsetattr(stdin_fd, termios.TCSADRAIN, stdin_old_terminal_settings)
 
 def cycle(minutes: int=0, tomato_style: int=0) -> None:
-    global isnt_stopped, running
+    global isnt_stopped
 
-    running = True
-    total_seconds  : int = minutes*60
-    elapsed_seconds: int = 0
-    style          : int = 0
-    progress       : int = 0
+    if   (os.name == "nt"): ...
+    else:
+        stdin_fd = stdin.fileno()
+        old_terminal_settings = tcgetattr(stdin_fd)
 
-    while running:
-        threading.Thread(target=get_input, daemon=True).start()
-        if total_seconds<=elapsed_seconds: break
+        tty.setcbreak(stdin_fd)
 
-        progress = elapsed_seconds/total_seconds
-        style = int(progress * len(tomatoes[tomato_style]))
+        try:
+            total_seconds  : int = minutes*60
+            elapsed_seconds: int = 0
+            style          : int = 0
+            progress       : int = 0
 
-        print("\033[2J\033[H", end="") # Clear Screen
-        if   (isnt_stopped==0): print(tomato_stopped)
-        else                  : print(tomatoes[tomato_style][style])
-        print(f"       Time: {(elapsed_seconds/60):.1f} Minutes")
+            while True:
+                ready = select([stdin], [], [], 0)[0]
+                if (ready):
+                    input_: str = stdin.read(1)
 
-        stdout.flush()
-        sleep(1)
-        elapsed_seconds+=(1*isnt_stopped)
+                    if   (input_ == "s"                 ): isnt_stopped=0
+                    elif (input_ == "r"                 ): isnt_stopped=1
+                    elif (input_ == " "                 ): isnt_stopped=not isnt_stopped
+                    elif (input_ == "q" or input_ == "e"): break
 
-    print("\033[2J\033[H", end="") # Clear Screen
-    print(tomato_end)
-    print("       Finished!")
+                if total_seconds<=elapsed_seconds: break
+
+                progress = elapsed_seconds/total_seconds
+                style = int(progress * len(tomatoes[tomato_style]))
+
+                print("\033[2J\033[H", end="") # Clear Screen
+                if   (isnt_stopped==0): print(tomato_stopped)
+                else                  : print(tomatoes[tomato_style][style])
+                print(f"       Time: {(elapsed_seconds/60):.1f} Minutes")
+
+                stdout.flush()
+                sleep(1)
+                elapsed_seconds+=(1*isnt_stopped)
+
+            print("\033[2J\033[H", end="") # Clear Screen
+            print(tomato_end)
+            print("       Finished!")
+        finally:
+            tcsetattr(stdin_fd, TCSADRAIN, old_terminal_settings)
 
