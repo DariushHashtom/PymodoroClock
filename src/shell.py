@@ -10,9 +10,9 @@ logo: str = """
 
 keys_help: dict[str, str] = {
     "q": "Quit"       ,
-    "t": "Tomato"     ,
-    "s": "Short Break",
-    "l": "Long Break" ,
+    "t": "Tomato      (Default: 25min)",
+    "s": "Short Break (Default: 5 min)",
+    "l": "Long Break  (Default: 15min)",
 }
 
 times: dict[str, float] = {
