@@ -1,6 +1,7 @@
 from time import sleep
 from sys  import stdout
 import os
+import asyncio
 
 
 if (os.name == "nt"): ...
@@ -163,9 +164,15 @@ tomato_stopped: str = """
             """
 
 isnt_stopped: int = 1
+elapsed_seconds: int =0
+
+async def wait() -> None:
+    global isnt_stopped, elapsed_seconds
+    await asyncio.sleep(1)
+    elapsed_seconds+=(1*isnt_stopped)
 
 def cycle(minutes: int=0, tomato_style: int=0) -> None:
-    global isnt_stopped
+    global isnt_stopped, elapsed_seconds
 
     if   (os.name == "nt"): ...
     else:
@@ -176,7 +183,7 @@ def cycle(minutes: int=0, tomato_style: int=0) -> None:
 
         try:
             total_seconds  : int = minutes*60
-            elapsed_seconds: int = 0
+            elapsed_seconds      = 0
             style          : int = 0
             progress       : int = 0
 
@@ -201,8 +208,8 @@ def cycle(minutes: int=0, tomato_style: int=0) -> None:
                 print(f"       Time: {(elapsed_seconds/60):.1f} Minutes")
 
                 stdout.flush()
-                sleep(1)
-                elapsed_seconds+=(1*isnt_stopped)
+
+                asyncio.run(wait())
 
             print("\033[2J\033[H", end="") # Clear Screen
             print(tomato_end)
