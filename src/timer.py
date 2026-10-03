@@ -1,9 +1,13 @@
-from time  import sleep
-from sys   import stdout
-from plyer import notification
+from time       import sleep
+from sys        import stdout
+from plyer      import notification
+from playsound3 import playsound
+from pathlib    import Path
 import os
 import asyncio
 
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 if (os.name == "nt"): ...
 else                :
@@ -218,6 +222,9 @@ def cycle(minutes: int=0, tomato_style: int=0) -> None:
                 message="Time's UP!",
                 timeout=5
             )
+            # Play Bell Sound
+            sound_path = PROJECT_ROOT / "assets" / "sounds" / "notification.wav"
+            playsound(str(sound_path))
 
             print("\033[2J\033[H", end="") # Clear Screen
             print(tomato_end)
