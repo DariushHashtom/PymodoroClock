@@ -6,3 +6,6 @@
 ## Recommended:
  - uv
  - python-dbus Or python3-dbus
+
+## Usage:
+run src/main.py with python3.15
