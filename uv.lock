@@ -1,0 +1,49 @@
+version = 1
+revision = 3
+requires-python = ">=3.15"
+
+[[package]]
+name = "playsound3"
+version = "3.3.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pywin32", marker = "sys_platform == 'win32'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f8/da/cad7906fffd15c13db1ee02054e0d59d86711e366947f05bc9a2e9da0e8a/playsound3-3.3.2.tar.gz", hash = "sha256:a19d9f542beb3ce5ecb4ca780b47092c785725263e339bed8e7d340b322c4f9d", size = 608816, upload-time = "2026-07-18T11:31:59.941Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/8b/39/93f689120673873a1328fbf94b6906a16b5ada41f33af0699f2eddc73cff/playsound3-3.3.2-py3-none-any.whl", hash = "sha256:fde2ca4378ae7a34d125a5965799fb1eee2af9907dbec29d394e29d28ee4137b", size = 9824, upload-time = "2026-07-18T11:31:58.207Z" },
+]
+
+[[package]]
+name = "plyer"
+version = "2.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/20/85/f61425aa9be1f9108eec1c13861c1e11c9a04eb786eb4832a8f7188317df/plyer-2.1.0.tar.gz", hash = "sha256:65b7dfb7e11e07af37a8487eb2aa69524276ef70dad500b07228ce64736baa61", size = 121371, upload-time = "2022-11-12T13:36:48.978Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d3/89/a41c2643fc8eabeb84791acb9d0e4d139b1e4b53473cc4dae947b5fa33ed/plyer-2.1.0-py2.py3-none-any.whl", hash = "sha256:1b1772060df8b3045ed4f08231690ec8f7de30f5a004aa1724665a9074eed113", size = 142266, upload-time = "2022-11-12T13:36:47.181Z" },
+]
+
+[[package]]
+name = "pymodoroclock"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "playsound3" },
+    { name = "plyer" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "playsound3" },
+    { name = "plyer" },
+]
+
+[[package]]
+name = "pywin32"
+version = "312"
+source = { registry = "https://pypi.org/simple" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/eb/61/caa39686032d2ebdd04ff0ab5cbe163126c0066d98e00c9018646e42393b/pywin32-312-cp315-cp315-win32.whl", hash = "sha256:5c1fbe4a937a73ae9297384a3da38518cbc694c68ad8a809b2e19acd350f03ed", size = 6471159, upload-time = "2026-06-04T07:49:50.035Z" },
+    { url = "https://files.pythonhosted.org/packages/0f/cd/7e1de64a4a6f69c04214169657ccab0d93a670ea50e35eb8f489d7378249/pywin32-312-cp315-cp315-win_amd64.whl", hash = "sha256:c2f03a0f73f804a13c2735b99392b0cd426bb4f2c4d0178e5ac966a0f21618d5", size = 7025293, upload-time = "2026-06-04T07:49:54.857Z" },
+    { url = "https://files.pythonhosted.org/packages/23/ed/4532e9388e65fa16b46776ef47ad631a64eda1631884488af707666350ed/pywin32-312-cp315-cp315-win_arm64.whl", hash = "sha256:a8597d28f267b39074aef51fa593530082b39cbe5a074226096857b1fed2dfb9", size = 6840337, upload-time = "2026-06-04T07:49:57.531Z" },
+]
