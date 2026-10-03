@@ -3,3 +3,5 @@
 
 ## Minimum Requirements:
  - Python 3.15
+## Recommended:
+ - uv
