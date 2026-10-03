@@ -22,3 +22,5 @@ run src/main.py with python3.15
 ### Openning:
 1. Open CMD/PowerShell Or another terminal in Source code folder
 5. In Windows Type ``python3.15 src\main.py``. Or in Linux/Unix Type ``python3.15 src/main.py``
+
+## Notification sound from mixkit
