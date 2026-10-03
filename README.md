@@ -5,3 +5,4 @@
  - Python 3.15
 ## Recommended:
  - uv
+ - python-dbus Or python3-dbus
