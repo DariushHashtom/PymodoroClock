@@ -1,5 +1,6 @@
-from time import sleep
-from sys  import stdout
+from time  import sleep
+from sys   import stdout
+from plyer import notification
 import os
 import asyncio
 
@@ -210,6 +211,13 @@ def cycle(minutes: int=0, tomato_style: int=0) -> None:
                 stdout.flush()
 
                 asyncio.run(wait())
+
+            # Notification
+            notification.notify(
+                title="Pymodoro",
+                message="Time's UP!",
+                timeout=5
+            )
 
             print("\033[2J\033[H", end="") # Clear Screen
             print(tomato_end)
